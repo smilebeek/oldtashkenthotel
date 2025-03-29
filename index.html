@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Old Tashkent Hotel & SPA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --primary-color: #1e2631;
+      --secondary-color: white;
+      --accent-color: #00E5FF;
+      --background-dark: #1e2631;
+      --background-darker: #1a232d;
+      --text-light: #e0e0e0;
+      --text-white: #ffffff;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+    body {
+      background-color: var(--background-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: "Montserrat", sans-serif;
+      color: var(--accent-color);
+      text-align: center;
+      position: relative;
+    }
+    .hotel-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(5, 28, 55, 0.8), rgba(2, 17, 36, 0.9)), url("/api/placeholder/1920/1080") center/cover;
+      z-index: -1;
+      transform: scale(1.1);
+      animation: slowZoom 30s infinite alternate;
+    }
+    @keyframes slowZoom {
+      0% { transform: scale(1.1); }
+      100% { transform: scale(1.2); }
+    }
+    .container {
+      position: relative;
+      z-index: 10;
+      padding: clamp(20px, 5vw, 40px);
+      width: min(90%, 500px);
+    }
+    .logo-container {
+      position: relative;
+      margin-bottom: clamp(20px, 4vh, 30px);
+    }
+    .logo {
+      width: min(180px, 70%);
+      max-width: 100%;
+      height: auto;
+      filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
+    }
+    .logo-accent {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border: 2px solid var(--accent-color);
+      border-radius: 50%;
+      opacity: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 4s infinite;
+    }
+    @keyframes pulse {
+      0% { width: 50px; height: 50px; opacity: 0.8; }
+      100% { width: min(200px, 40vw); height: min(200px, 40vw); opacity: 0; }
+    }
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(24px, 6vw, 36px);
+      font-weight: 700;
+      margin-bottom: clamp(10px, 2vh, 15px);
+      letter-spacing: 2px;
+      color: var(--text-white);
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .tagline {
+      font-size: clamp(14px, 3vw, 16px);
+      font-weight: 300;
+      margin-bottom: clamp(20px, 5vh, 40px);
+      color: var(--text-light);
+      letter-spacing: 1px;
+    }
+    .loading-container {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .loading-bar {
+      height: 2px;
+      width: 100%;
+      background-color: rgba(0, 229, 255, 0.3);
+      margin: 20px auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .loading-progress {
+      position: absolute;
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent-color);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
+      transition: width 0.5s ease;
+    }
+    .loading-text {
+      font-size: clamp(10px, 3vw, 12px);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 15px;
+      font-weight: 500;
+      color: var(--accent-color);
+    }
+    .percentage {
+      position: absolute;
+      top: -25px;
+      font-size: clamp(12px, 3vw, 14px);
+      font-weight: 500;
+      color: var(--accent-color);
+      transition: left 0.5s ease;
+    }
+    .amenity-icons {
+      display: flex;
+      justify-content: center;
+      gap: clamp(10px, 3vw, 20px);
+      margin-top: clamp(30px, 5vh, 50px);
+      opacity: 0.7;
+    }
+    .amenity-icon {
+      width: clamp(20px, 5vw, 24px);
+      height: clamp(20px, 5vw, 24px);
+      border: 1px solid var(--accent-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(10px, 3vw, 15px);
+      opacity: 0.5;
+      animation: fade-in-out 8s infinite;
+    }
+    .amenity-icon:nth-child(2) { animation-delay: 1s; }
+    .amenity-icon:nth-child(3) { animation-delay: 2s; }
+    .amenity-icon:nth-child(4) { animation-delay: 3s; }
+    @keyframes fade-in-out {
+      0%, 100% { opacity: 0.2; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-5px); }
+    }
+    .amenity-icon svg {
+      width: clamp(12px, 3vw, 16px);
+      height: clamp(12px, 3vw, 16px);
+      fill: var(--accent-color);
+    }
+    .decoration {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+      width: 90%;
+      max-width: 400px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .decoration-top {
+      top: 10%;
+    }
+    .decoration-bottom {
+      bottom: 10%;
+    }
+    .water-ripple {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: transparent;
+      border: 2px solid rgba(0, 229, 255, 0.4);
+      border-radius: 50%;
+      animation: ripple 6s infinite linear;
+      opacity: 0;
+    }
+    @keyframes ripple {
+      0% {
+        width: 20px;
+        height: 20px;
+        opacity: 0.7;
+      }
+      100% {
+        width: min(200px, 40vw);
+        height: min(200px, 40vw);
+        opacity: 0;
+      }
+    }
+    .door-animation {
+      position: fixed;
+      height: 100vh;
+      width: 50%;
+      background-color: var(--background-dark);
+      top: 0;
+      z-index: 100;
+      transition: transform 1.5s cubic-bezier(0.8, 0, 0.2, 1);
+    }
+    .door-left {
+      left: 0;
+      transform: translateX(0);
+    }
+    .door-right {
+      right: 0;
+      transform: translateX(0);
+    }
+    .door-handle {
+      position: absolute;
+      top: 50%;
+      width: clamp(10px, 3vw, 15px);
+      height: clamp(20px, 5vw, 30px);
+      background-color: var(--accent-color);
+      border-radius: 5px;
+    }
+    .door-left .door-handle {
+      right: 20px;
+    }
+    .door-right .door-handle {
+      left: 20px;
+    }
+    .open-doors .door-left {
+      transform: translateX(-100%);
+    }
+    .open-doors .door-right {
+      transform: translateX(100%);
+    }
+    .ocean {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: rgba(0, 229, 255, 0.2);
+      z-index: -1;
+    }
+    .wave {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2300E5FF" fill-opacity="0.2" d="M0,192L40,197.3C80,203,160,213,240,213.3C320,213,400,203,480,181.3C560,160,640,128,720,128C800,128,880,160,960,181.3C1040,203,1120,213,1200,197.3C1280,181,1360,139,1400,117.3L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>');
+      position: absolute;
+      width: 200%;
+      height: 100px;
+      bottom: 0;
+      left: 0;
+      background-repeat: repeat-x;
+      animation: wave 20s linear infinite;
+    }
+    @keyframes wave {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0, 229, 255, 0.2);
+      animation: float-bubble 10s infinite ease-in;
+      bottom: -20px;
+    }
+    @keyframes float-bubble {
+      0% { 
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+      100% { 
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+    .credit {
+      position: absolute;
+      bottom: 10px;
+      font-size: clamp(10px, 2.5vw, 12px);
+      color: rgba(255, 255, 255, 0.5);
+      z-index: 5;
+    }
+    .fade-out { 
+      animation: fadeOut 1s ease-in-out forwards; 
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    
+    /* Media Queries for Responsive Design */
+    @media (max-width: 768px) {
+      .decoration-top { top: 5%; }
+      .decoration-bottom { bottom: 5%; }
+    }
+    
+    @media (max-width: 480px) {
+      .amenity-icons {
+        gap: 15px;
+      }
+      h1 {
+        font-size: 28px;
+      }
+    }
+    
+    @media (max-height: 600px) {
+      .tagline {
+        margin-bottom: 20px;
+      }
+      .amenity-icons {
+        margin-top: 20px;
+      }
+    }
+    
+    /* Orientation specific adjustments */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .container {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      .logo-container {
+        margin-bottom: 10px;
+      }
+      .logo {
+        width: min(120px, 30%);
+      }
+      h1 {
+        font-size: 24px;
+        margin-bottom: 5px;
+      }
+      .tagline {
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+      .amenity-icons {
+        margin-top: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Door Animation -->
+  <div class="door-animation door-left">
+    <div class="door-handle"></div>
+  </div>
+  <div class="door-animation door-right">
+    <div class="door-handle"></div>
+  </div>
+
+  <!-- Background -->
+  <div class="hotel-bg"></div>
+  
+  <!-- Ocean effect -->
+  <div class="ocean">
+    <div class="wave"></div>
+  </div>
+  
+  <!-- Decorative lines -->
+  <div class="decoration decoration-top"></div>
+  <div class="decoration decoration-bottom"></div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="logo-container">
+      <img src="/api/placeholder/180/180" alt="Hotel Logo" class="logo" />
+      <div class="logo-accent"></div>
+    </div>
+    
+    <h1>WELCOME TO OLD TASHKENT</h1>
+    <p class="tagline">Where luxury meets tradition...</p>
+    
+    <div class="loading-container">
+      <div class="percentage">0%</div>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+      <div class="loading-text">Preparing Your Experience</div>
+    </div>
+    
+    <div class="amenity-icons">
+      <div class="amenity-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M22,9h-4.86c0.12-0.28,0.2-0.59,0.2-0.91c0-1.31-1.16-2.38-2.59-2.38c-0.53,0-1.03,0.15-1.46,0.42 C12.85,5.5,12.17,5,11.38,5H6.5C4.57,5,3,6.57,3,8.5V11H2v8c0,0.55,0.45,1,1,1h1c0.55,0,1-0.45,1-1v-1h14v1c0,0.55,0.45,1,1,1h1 c0.55,0,1-0.45,1-1v-8h-1v-1H22V9z M11.38,7C11.72,7,12,7.28,12,7.62v2.38H8v-2.5C8,7.22,8.22,7,8.5,7H11.38z M5,8.5 C5,7.67,5.67,7,6.5,7S8,7.67,8,8.5V10H5V8.5z M8.33,12l-1.74,3.48L5.25,16l1.94-3.89L8.33,12z M16.77,16l-1.34-0.52L13.7,12 l1.14-0.04L16.77,16z"/>
+        </svg>
+      </div>
+      <div class="amenity-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M8.1,13.34l2.83-2.83L3.91,3.5c-1.56,1.56-1.56,4.09,0,5.66l4.19,4.18z M14.88,11.53c1.53,0.71,3.68,0.21,5.27-1.38 c1.91-1.91,2.28-4.65,0.81-6.12c-1.46-1.46-4.2-1.1-6.12,0.81c-1.59,1.59-2.09,3.74-1.38,5.27L3.7,19.87l1.41,1.41L12,14.39 L19.87,22.27L21.28,20.85L13.41,12.98L14.88,11.53z"/>
+        </svg>
+      </div>
+      <div class="amenity-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M5.5,22v-7.5H4V9c0-1.1,0.9-2,2-2h3c1.1,0,2,0.9,2,2v5.5H9.5V22h-4z M18,22v-6h3l-2.54-7.63C18.18,7.55,17.42,7,16.56,7 h-0.12c-0.86,0-1.63,0.55-1.9,1.37L12,16h3v6H18z M7.5,6c1.11,0,2-0.89,2-2s-0.89-2-2-2s-2,0.89-2,2S6.39,6,7.5,6z M16.5,6 c1.11,0,2-0.89,2-2s-0.89-2-2-2s-2,0.89-2,2S15.39,6,16.5,6z"/>
+        </svg>
+      </div>
+      <div class="amenity-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M13.5,0.67s0.74,2.65,0.74,4.8c0,2.06-1.35,3.73-3.41,3.73C8.76,9.2,7.2,7.53,7.2,5.47 c0-2.15,0.74-4.8,0.74-4.8S3.97,1.76,3.38,6.06c-0.59,4.3,0.59,7.83,2.36,10.19c1.76,2.36,5.3,3.24,5.3,3.24s3.54-0.88,5.3-3.24 c1.77-2.36,2.95-5.89,2.36-10.19C18.09,1.76,13.5,0.67,13.5,0.67z M9.13,17.83c-0.88,0.44-1.93,0.38-2.76-0.15 c-1.42-0.9-1.83-2.8-0.93-4.21c0.91-1.42,2.8-1.84,4.22-0.93c1.42,0.91,1.83,2.8,0.93,4.22C10.24,17.33,9.73,17.67,9.13,17.83z M15.63,17.68c-0.83,0.53-1.88,0.59-2.76,0.15c-0.61-0.17-1.12-0.5-1.46-1.07c-0.91-1.42-0.5-3.31,0.93-4.22 c1.42-0.91,3.32-0.49,4.22,0.93C17.46,14.88,17.05,16.78,15.63,17.68z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="credit">Old Tashkent Hotel & SPA</div>
+
+  <script>
+    // Create bubbles
+    function createBubbles() {
+      for (let i = 0; i < 20; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+        bubble.style.left = Math.random() * 100 + '%';
+        bubble.style.width = Math.random() * 15 + 5 + 'px';
+        bubble.style.height = bubble.style.width;
+        bubble.style.animationDuration = (Math.random() * 8 + 8) + 's';
+        bubble.style.animationDelay = (Math.random() * 15) + 's';
+        document.body.appendChild(bubble);
+      }
+    }
+    createBubbles();
+
+    // Create water ripples
+    function createRipple() {
+      const ripple = document.createElement('div');
+      ripple.classList.add('water-ripple');
+      ripple.style.left = Math.random() * 80 + 10 + '%';
+      ripple.style.top = Math.random() * 80 + 10 + '%';
+      document.body.appendChild(ripple);
+      
+      setTimeout(() => {
+        if (ripple && ripple.parentNode) {
+          ripple.parentNode.removeChild(ripple);
+        }
+      }, 6000);
+    }
+
+    setInterval(createRipple, 2000);
+
+    // Progress bar animation
+    const progressBar = document.querySelector('.loading-progress');
+    const percentageText = document.querySelector('.percentage');
+    let progress = 0;
+    
+    // Open doors after delay
+    setTimeout(() => {
+      document.body.classList.add('open-doors');
+    }, 1000);
+
+    // Start progress after doors open
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 3) + 1;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          setTimeout(() => {
+            document.body.classList.add("fade-out");
+            setTimeout(() => {
+              window.location.href = "en/main.html";
+            }, 1000);
+          }, 500);
+        }
+        progressBar.style.width = progress + '%';
+        percentageText.textContent = progress + '%';
+        percentageText.style.left = `calc(${progress}% - 15px)`;
+      }, 150);
+    }, 2000);
+    
+    // Check if device is in landscape mode on mobile
+    function checkOrientation() {
+      if (window.innerHeight < 500 && window.innerWidth > window.innerHeight) {
+        document.body.classList.add('landscape-mode');
+      } else {
+        document.body.classList.remove('landscape-mode');
+      }
+    }
+    
+    // Run on load and resize
+    window.addEventListener('load', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+  </script>
+</body>
+</html>

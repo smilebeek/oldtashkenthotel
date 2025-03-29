@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отель и СПА Старый Ташкент</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --vh: 1vh;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0c1b29;
+      color: white;
+      text-align: center;
+      min-height: 100vh; /* Fallback */
+      min-height: calc(var(--vh, 1vh) * 100);
+      position: relative;
+      overflow-x: hidden;
+      animation: backgroundAnimation 30s infinite alternate;
+      -webkit-tap-highlight-color: transparent;
+    }
+    @keyframes backgroundAnimation {
+      0% {
+        background-color: #0c1b29;
+      }
+      50% {
+        background-color: #1f2a3a;
+      }
+      100% {
+        background-color: #0c1b29;
+      }
+    }
+
+    .background-animation {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: circleAnimation 15s linear infinite;
+    }
+    .circle:nth-child(1) {
+      width: 200px;
+      height: 200px;
+      top: -100px;
+      left: -100px;
+    }
+    .circle:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      bottom: -150px;
+      right: -150px;
+      animation-duration: 20s;
+    }
+    .circle:nth-child(3) {
+      width: 150px;
+      height: 150px;
+      top: 200px;
+      left: 300px;
+      animation-duration: 12s;
+    }
+    .circle:nth-child(4) {
+      width: 250px;
+      height: 250px;
+      bottom: 100px;
+      left: 200px;
+      animation-duration: 18s;
+    }
+    @keyframes circleAnimation {
+      0% {
+        transform: scale(0) translate(0, 0);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.5) translate(500px, 500px);
+        opacity: 0;
+      }
+    }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 20px;
+      text-align: left;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .language-dropdown {
+      position: relative;
+    }
+    .language-button {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 15px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .language-button:hover {
+      background: rgba(0, 229, 255, 0.2);
+      border-color: rgba(0, 229, 255, 0.5);
+    }
+    .language-button .flag-icon {
+      width: 20px;
+      height: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .language-button i.fa-chevron-down {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-left: 5px;
+    }
+    .language-list {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      padding: 0;
+      display: none;
+      width: 180px;
+      max-height: 320px;
+      overflow-y: auto;
+      z-index: 200;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 10px;
+    }
+    .language-list a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      text-decoration: none;
+      padding: 12px 15px;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .language-list a:last-child {
+      border-bottom: none;
+    }
+    .language-list a:hover {
+      background: rgba(0, 229, 255, 0.2);
+    }
+    .language-list a .flag-icon {
+      width: 24px;
+      height: 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .language-dropdown:hover .language-list {
+      display: block;
+      animation: fadeInDown 0.3s ease forwards;
+    }
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Enhanced Middle Section */
+    .hero-section {
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin-bottom: 60px;
+      overflow: hidden;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('img.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      transform: scale(1.02);
+      transition: transform 8s ease;
+      animation: slowZoom 20s infinite alternate;
+    }
+    
+    @keyframes slowZoom {
+      0% { transform: scale(1.02); }
+      100% { transform: scale(1.1); }
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 30px;
+      max-width: 700px;
+      text-align: center;
+    }
+    
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 60px;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #ffffff, #00E5FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    
+    .hero-text {
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    
+    .book-btn {
+      background: rgba(0, 229, 255, 0.2);
+      color: white;
+      border: 2px solid #00E5FF;
+      padding: 12px 30px;
+      font-size: 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      font-weight: 600;
+    }
+    
+    .book-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 229, 255, 0.4);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+      z-index: -1;
+    }
+    
+    .book-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(0, 229, 255, 0.4);
+    }
+    
+    .book-btn:hover::before {
+      transform: translateX(0);
+    }
+    
+    .features-section {
+      display: flex;
+      justify-content: space-between;
+      margin: 60px 0;
+      gap: 20px;
+    }
+    
+    .feature-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 229, 255, 0.2);
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00E5FF, transparent);
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+    }
+    
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .feature-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+      color: #00E5FF;
+    }
+    
+    .feature-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .feature-text {
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: center;
+    }
+    
+    /* Fixed Room Cards */
+    .rooms-section {
+      padding: 40px 0;
+      text-align: center;
+    }
+    
+    .rooms-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .rooms-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 80px;
+      height: 3px;
+      background: #00E5FF;
+      transform: translateX(-50%);
+    }
+    
+    .room-category {
+      font-size: 20px;
+      margin: 30px 0 20px;
+      color: #00E5FF;
+      font-weight: 600;
+    }
+    
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    
+    .room-card {
+      position: relative;
+      height: 450px;
+      border-radius: 15px;
+      overflow: hidden;
+      perspective: 1000px;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    
+    .room-front, .room-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+    
+    .room-front {
+      background-position: center;
+      background-size: cover;
+      transform: rotateY(0deg);
+    }
+    
+    .room-back {
+      background: linear-gradient(135deg, rgba(12, 27, 41, 0.9), rgba(0, 229, 255, 0.2));
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
+    
+    /* Fix for room header to stay visible and not flip */
+    .room-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 5;
+      padding: 20px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+      text-align: center;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .room-card:hover .room-header {
+      opacity: 0;
+    }
+    
+    .room-header .room-title {
+      font-size: 24px;
+      margin-bottom: 5px;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .room-header .room-price {
+      color: #00E5FF;
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    
+    .room-card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+    
+    .room-card:hover .room-front {
+      transform: rotateY(180deg);
+    }
+    
+    .room-card:hover .room-back {
+      transform: rotateY(0deg);
+    }
+    
+    .room-card.touch-active .room-front {
+      transform: rotateY(180deg);
+    }
+    
+    .room-card.touch-active .room-back {
+      transform: rotateY(0deg);
+    }
+    
+    .room-card.touch-active .room-header {
+      opacity: 0;
+    }
+    
+    .room-description {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    
+    .room-features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .room-feature {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .room-feature i {
+      font-size: 12px;
+      color: #00E5FF;
+    }
+    
+    .view-btn {
+      background: rgba(0, 229, 255, 0.2);
+      color: white;
+      border: 1px solid #00E5FF;
+      padding: 10px 25px;
+      font-size: 14px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .view-btn:hover {
+      background: rgba(0, 229, 255, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+    }
+    
+    .gallery-thumb {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .thumb {
+      width: 60px;
+      height: 40px;
+      border-radius: 5px;
+      background-size: cover;
+      background-position: center;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .thumb:hover, .thumb.active {
+      border-color: #00E5FF;
+      transform: scale(1.1);
+    }
+    
+    /* Keep original navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(50px);
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    }
+    .navbar a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      padding: 10px;
+      transition: color 0.3s ease;
+      font-size: 14px;
+      white-space: nowrap;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+    .navbar a i {
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+    .navbar a:hover {
+      color: #00E5FF;
+    }
+    
+    .image-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .image-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    
+    .modal-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 5px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .close-modal:hover {
+      transform: scale(1.2);
+      color: #00E5FF;
+    }
+    
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Enhanced Contact Section Styles */
+    .contact-section {
+      padding: 60px 0;
+      text-align: center;
+      margin-top: 60px;
+      animation: fadeIn 1s ease forwards;
+    }
+    
+    .contact-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .contact-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 80px;
+      height: 3px;
+      background: #00E5FF;
+      transform: translateX(-50%);
+    }
+    
+    .contact-container {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-top: 30px;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .contact-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      transition: all 0.3s ease;
+      text-align: left;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 229, 255, 0.2);
+      border-color: rgba(0, 229, 255, 0.3);
+    }
+    
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(0, 229, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-card:hover .contact-icon {
+      background: rgba(0, 229, 255, 0.4);
+      transform: scale(1.1);
+    }
+    
+    .contact-icon i {
+      font-size: 24px;
+      color: #00E5FF;
+    }
+    
+    .contact-details h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .contact-details p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    
+    .contact-details a {
+      color: #00E5FF;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-details a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+    
+    /* Map styles - FIXED SIZE */
+    .map-section {
+      width: 100%;
+      margin: 30px 0;
+    }
+    
+    .map-container {
+      width: 100%;
+      height: 550px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(0, 229, 255, 0.3);
+      position: relative;
+      transform: translateY(0);
+      transition: all 0.5s ease;
+    }
+    
+    .map-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 229, 255, 0.2);
+    }
+    
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .map-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(0, 229, 255, 0.1), transparent);
+      pointer-events: none;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+    
+    .map-container:hover .map-overlay {
+      opacity: 0.2;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 50px;
+    }
+    
+    .social-link {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .social-link:hover {
+      background: #00E5FF;
+      color: #0c1b29;
+      transform: translateY(-8px) rotate(360deg);
+      box-shadow: 0 10px 20px rgba(0, 229, 255, 0.4);
+    }
+    
+    @media screen and (max-width: 992px) {
+      .hero-section {
+        height: 60vh;
+      }
+      
+      .hero-title {
+        font-size: 42px;
+      }
+      
+      .features-section {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      .map-container {
+        height: 500px;
+      }
+    }
+    
+    @media screen and (max-width: 768px) {
+      .header h1 {
+        font-size: 18px;
+      }
+      
+      .container {
+        padding: 70px 20px;
+      }
+      
+      .hero-section {
+        height: auto;
+        min-height: 50vh;
+        margin-bottom: 40px;
+      }
+      
+      .hero-title {
+        font-size: 32px;
+      }
+      
+      .hero-text {
+        font-size: 16px;
+      }
+      
+      .rooms-grid {
+        grid-template-columns: minmax(280px, 1fr);
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .room-card {
+        height: 420px;
+      }
+      
+      .map-container {
+        height: 450px;
+      }
+      
+      .contact-card {
+        padding: 20px;
+      }
+      
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .contact-icon i {
+        font-size: 20px;
+      }
+      
+      .social-links {
+        gap: 10px;
+      }
+      
+      .social-link {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+    }
+    
+    @media screen and (max-width: 576px) {
+      .header {
+        padding: 15px;
+      }
+      
+      .header h1 {
+        font-size: 16px;
+      }
+      
+      .container {
+        padding: 60px 15px;
+      }
+      
+      .hero-title {
+        font-size: 28px;
+      }
+      
+      .hero-text {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      
+      .book-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+      
+      .feature-card {
+        padding: 20px;
+      }
+      
+      .feature-icon {
+        font-size: 30px;
+      }
+      
+      .feature-title {
+        font-size: 18px;
+      }
+      
+      .rooms-section h2, .contact-section h2 {
+        font-size: 24px;
+      }
+      
+      .room-category {
+        font-size: 18px;
+      }
+      
+      .room-card {
+        height: 380px;
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .navbar {
+        padding: 10px 5px;
+      }
+      
+      .navbar a {
+        font-size: 12px;
+        padding: 8px 5px;
+      }
+      
+      .contact-card {
+        padding: 15px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+      }
+      
+      .contact-icon {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .contact-details h3 {
+        font-size: 18px;
+      }
+      
+      .contact-details p {
+        font-size: 14px;
+      }
+      
+      .map-container {
+        height: 400px;
+      }
+    }
+    
+    @media screen and (max-width: 480px) {
+      .header h1 {
+        font-size: 14px;
+      }
+      
+      .language-button {
+        padding: 6px 10px;
+        font-size: 14px;
+      }
+      
+      .hero-title {
+        font-size: 24px;
+      }
+      
+      .feature-card {
+        padding: 15px;
+      }
+      
+      .room-card {
+        height: 350px;
+        width: 100%;
+      }
+      
+      .room-header .room-title {
+        font-size: 22px;
+      }
+      
+      .room-header .room-price {
+        font-size: 16px;
+      }
+      
+      .room-description {
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+      
+      .room-features {
+        gap: 8px;
+        margin-bottom: 15px;
+      }
+      
+      .room-feature {
+        font-size: 12px;
+        padding: 5px 10px;
+      }
+      
+      .view-btn {
+        padding: 8px 20px;
+      }
+      
+      .contact-section h2 {
+        font-size: 22px;
+      }
+      
+      .social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+      
+      .map-container {
+        height: 350px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-animation">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+  
+  <!-- Keeping header in the same position -->
+  <div class="header">
+    <h1>Old Tashkent Hotel & SPA</h1>
+    <div class="language-dropdown">
+      <button class="language-button">
+        <span class="flag-icon flag-icon-ru"></span> Русский <i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="language-list">
+        <a href="../en/main.html"><span class="flag-icon flag-icon-us"></span> English</a>
+        <a href="../rus/main.html"><span class="flag-icon flag-icon-ru"></span> Русский</a>
+        <a href="#"><span class="flag-icon flag-icon-uz"></span> Uzbek</a>
+        <a href="#"><span class="flag-icon flag-icon-de"></span> German</a>
+        <a href="#"><span class="flag-icon flag-icon-fr"></span> French</a>
+        <a href="#"><span class="flag-icon flag-icon-cn"></span> Chinese</a>
+        <a href="#"><span class="flag-icon flag-icon-sa"></span> Arabic</a>
+        <a href="#"><span class="flag-icon flag-icon-tr"></span> Turkish</a>
+        <a href="#"><span class="flag-icon flag-icon-kr"></span> Korean</a>
+        <a href="#"><span class="flag-icon flag-icon-jp"></span> Japanese</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <!-- Enhanced Middle Section -->
+    <div class="hero-section">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Испытайте роскошь в Ташкенте</h1>
+        <p class="hero-text">Войдите в мир роскоши, где традиционное узбекское гостеприимство сочетается с современной элегантностью. Откройте для себя оазис комфорта и релаксации в сердце исторического Ташкента.</p>
+        <!-- <button class="book-btn">Забронировать проживание</button> -->
+      </div>
+    </div>
+    
+    <!-- <div class="features-section">
+      <div class="feature-card">
+        <i class="fas fa-spa feature-icon"></i>
+        <h3 class="feature-title">Роскошный СПА</h3>
+        <p class="feature-text">Побалуйте себя нашим традиционным хаммамом и современными спа-процедурами для максимального расслабления.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-utensils feature-icon"></i>
+        <h3 class="feature-title">Изысканная кухня</h3>
+        <p class="feature-text">Насладитесь аутентичной узбекской кухней и международными блюдами от наших шеф-поваров.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-concierge-bell feature-icon"></i>
+        <h3 class="feature-title">Круглосуточный сервис</h3>
+        <p class="feature-text">Наш внимательный персонал всегда готов обеспечить проживание, превосходящее все ожидания.</p>
+      </div>
+    </div> -->
+    
+    <!-- Fixed Room Cards -->
+    <div class="rooms-section">
+      <h2>Наши роскошные номера</h2>
+      <div class="room-category">Номера Делюкс</div>
+      <div class="rooms-grid">
+        <div class="room-card">
+          <!-- Room title and price outside the flipping sections -->
+          <div class="room-header">
+            <h3 class="room-title">Делюкс Кинг</h3>
+            <div class="room-price">От $150/ночь</div>
+          </div>
+          
+          <div class="room-front" style="background-image: url('img.png')"></div>
+          
+          <div class="room-back">
+            <h3 class="room-title">Делюкс Кинг</h3>
+            <p class="room-description">Испытайте непревзойденный комфорт в нашем просторном номере Делюкс Кинг, оснащенном роскошной кроватью размера кинг-сайз, элегантным декором и потрясающим видом на город.</p>
+            <div class="room-features">
+              <span class="room-feature"><i class="fas fa-wifi"></i> Бесплатный WiFi</span>
+              <span class="room-feature"><i class="fas fa-tv"></i> Смарт ТВ</span>
+              <span class="room-feature"><i class="fas fa-bath"></i> Роскошная ванная</span>
+              <span class="room-feature"><i class="fas fa-coffee"></i> Минибар</span>
+            </div>
+            <button class="view-btn" onclick="openModal('img.png')">Посмотреть галерею</button>
+            <div class="gallery-thumb">
+              <div class="thumb active" style="background-image: url('img.png')" onclick="changeMainImage(this, 'img.png')"></div>
+              <div class="thumb" style="background-image: url('img.png')" onclick="changeMainImage(this, 'img.png')"></div>
+              <div class="thumb" style="background-image: url('img.png')" onclick="changeMainImage(this, 'img.png')"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="room-card">
+          <!-- Room title and price outside the flipping sections -->
+          <div class="room-header">
+            <h3 class="room-title">Делюкс Твин</h3>
+            <div class="room-price">От $130/ночь</div>
+          </div>
+          
+          <div class="room-front" style="background-image: url('img.png')"></div>
+          
+          <div class="room-back">
+            <h3 class="room-title">Делюкс Твин</h3>
+            <p class="room-description">Наш номер Делюкс Твин предлагает идеальное сочетание стиля и удобства, с двумя комфортными односпальными кроватями и современными удобствами.</p>
+            <div class="room-features">
+              <span class="room-feature"><i class="fas fa-wifi"></i> Бесплатный WiFi</span>
+              <span class="room-feature"><i class="fas fa-tv"></i> Смарт ТВ</span>
+              <span class="room-feature"><i class="fas fa-snowflake"></i> Кондиционер</span>
+              <span class="room-feature"><i class="fas fa-coffee"></i> Минибар</span>
+            </div>
+            <button class="view-btn" onclick="openModal('img.png')">Посмотреть галерею</button>
+            <div class="gallery-thumb">
+              <div class="thumb active" style="background-image: url('img.png')" onclick="changeMainImage(this, 'img.png')"></div>
+              <div class="thumb" style="background-image: url('img.png')" onclick="changeMainImage(this, 'img.png')"></div>
+              <div class="thumb" style="background-image: url('img.png')" onclick="changeMainImage(this, 'img.png')"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="room-card">
+          <!-- Room title and price outside the flipping sections -->
+          <div class="room-header">
+            <h3 class="room-title">Улучшенный Люкс</h3>
+            <div class="room-price">От $220/ночь</div>
+          </div>
+          
+          <div class="room-front" style="background-image: url('img.png')"></div>
+          
+          <div class="room-back">
+            <h3 class="room-title">Улучшенный Люкс</h3>
+            <p class="room-description">Наслаждайтесь роскошным пространством в нашем Улучшенном Люксе, включающем отдельную гостиную, премиальные удобства и панорамные виды на Ташкент.</p>
+            <div class="room-features">
+              <span class="room-feature"><i class="fas fa-wifi"></i> Бесплатный WiFi</span>
+              <span class="room-feature"><i class="fas fa-couch"></i> Гостиная</span>
+              <span class="room-feature"><i class="fas fa-bath"></i> Джакузи</span>
+              <span class="room-feature"><i class="fas fa-concierge-bell"></i> Услуги дворецкого</span>
+            </div>
+            <button class="view-btn" onclick="openModal('img.png')">Посмотреть галерею</button>
+            <div class="gallery-thumb">
+              <div class="thumb active" style="background-image: url('img.png')" onclick="changeMainImage(this, 'img.png')"></div>
+              <div class="thumb" style="background-image: url('img.png')" onclick="changeMainImage(this, 'img.png')"></div>
+              <div class="thumb" style="background-image: url('img.png')" onclick="changeMainImage(this, 'img.png')"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Enhanced Contact Section with Larger Map -->
+    <div class="contact-section">
+      <h2>Свяжитесь с нами</h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Наше расположение</h3>
+              <p>16 улица Навои, Ташкент</p>
+              <p>Узбекистан, 100011</p>
+              <p><i class="fas fa-landmark"></i> Исторический район</p>
+            </div>
+          </div>
+          
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Позвоните нам</h3>
+              <p><i class="fas fa-concierge-bell"></i> Ресепшн: <a href="tel:+998711234567">+998 71 123 4567</a></p>
+              <p><i class="fas fa-book"></i> Бронирование: <a href="tel:+998909876543">+998 90 987 6543</a></p>
+              <p>Круглосуточная поддержка клиентов</p>
+            </div>
+          </div>
+          
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Напишите нам</h3>
+              <p><i class="fas fa-info-circle"></i> Информация: <a href="mailto:info@oldtashkent.uz">info@oldtashkent.uz</a></p>
+              <p><i class="fas fa-calendar-check"></i> Бронирование: <a href="mailto:booking@oldtashkent.uz">booking@oldtashkent.uz</a></p>
+              <p>Ответ в течение 24 часов</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Separate larger map section -->
+      <div class="map-section">
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2997.4463247629665!2d69.2548406765543!3d41.31098097130228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b44b5ebbae9%3A0x7c74f36aedf7c681!2sNavoi%20Street%2C%20Tashkent%2C%20Uzbekistan!5e0!3m2!1sen!2sus!4v1711612246289!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="map-overlay"></div>
+        </div>
+      </div>
+      
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="Telegram">
+          <i class="fab fa-telegram"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="TripAdvisor">
+          <i class="fab fa-tripadvisor"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keeping navbar in the same position -->
+  <div class="navbar">
+    <a href="main.html"><i class="fas fa-info-circle"></i> О НАС</a>
+    <a href="services.html" class="active"><i class="fas fa-concierge-bell"></i> УСЛУГИ</a>
+    <a href="advices.html"><i class="fas fa-lightbulb"></i> СОВЕТЫ</a>
+    <a href="rules.html"><i class="fas fa-clipboard-list"></i> ПРАВИЛА</a>
+  </div>
+  <!-- Image Modal -->
+  <div class="image-modal" id="imageModal">
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Изображение номера">
+      <div class="close-modal" onclick="closeModal()">&times;</div>
+    </div>
+  </div>
+
+  <script>
+    // Modal functionality
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      modalImg.src = imageSrc;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = ''; // Restore scrolling
+    }
+    
+    // Close modal when clicking outside the image
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('imageModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Image gallery functionality
+    function changeMainImage(thumbElement, imageSrc) {
+      const allThumbs = document.querySelectorAll('.thumb');
+      allThumbs.forEach(thumb => thumb.classList.remove('active'));
+      thumbElement.classList.add('active');
+      
+      // Update modal image source
+      document.getElementById('modalImage').src = imageSrc;
+    }
+
+    // Interactive room cards
+    document.addEventListener('DOMContentLoaded', function() {
+      const roomCards = document.querySelectorAll('.room-card');
+      
+      // Function to handle card tilting on desktop
+      const handleCardTilt = (card, e) => {
+        if (window.innerWidth <= 992) return; // Skip on mobile
+        
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / card.clientWidth) - 0.5;
+        const y = ((e.clientY - rect.top) / card.clientHeight) - 0.5;
+        
+        card.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${y * -5}deg)`;
+      };
+      
+      // Function to reset card
+      const resetCard = (card) => {
+        if (window.innerWidth <= 992) return; // Skip on mobile
+        card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+      };
+      
+      // Function to toggle card flip on mobile
+      const toggleCardFlip = (card) => {
+        if (window.innerWidth > 992) return; // Skip on desktop
+        
+        // Toggle active class on clicked card
+        card.classList.toggle('touch-active');
+        
+        // Close other cards
+        roomCards.forEach(otherCard => {
+          if (otherCard !== card) {
+            otherCard.classList.remove('touch-active');
+          }
+        });
+      };
+      
+      // Add event listeners to each card
+      roomCards.forEach(card => {
+        // Desktop interactions
+        card.addEventListener('mousemove', (e) => handleCardTilt(card, e));
+        card.addEventListener('mouseleave', () => resetCard(card));
+        
+        // Mobile interactions
+        card.addEventListener('click', () => toggleCardFlip(card));
+        
+        // Prevent click events on buttons from flipping the card
+        const buttons = card.querySelectorAll('button');
+        buttons.forEach(button => {
+          button.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event from bubbling up to card
+          });
+        });
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', function() {
+        // Reset all cards
+        roomCards.forEach(card => {
+          card.style.transform = '';
+          
+          // Remove touch-active class if on desktop
+          if (window.innerWidth > 992) {
+            card.classList.remove('touch-active');
+          }
+        });
+      });
+      
+      // Add viewport height fix for mobile browsers
+      const setVh = () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      };
+      
+      setVh();
+      window.addEventListener('resize', setVh);
+    });
+  </script>
+</body>
+</html>

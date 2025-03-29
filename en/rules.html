@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Rules - Old Tashkent Hotel & SPA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" />
+  <style>
+    :root {
+      --primary-color: #1e2631;
+      --secondary-color: white;
+      --accent-color: #00E5FF;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      --card-bg: #2a343f;
+      --dark-bg: #1a232d;
+      --warning-color: #ff4d4d;
+      --warning-bg: rgba(255, 77, 77, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      text-align: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    .background-animation {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0, 229, 255, 0.05);
+      animation: circleAnimation 15s linear infinite;
+    }
+    
+    .circle:nth-child(1) {
+      width: 200px;
+      height: 200px;
+      top: -100px;
+      left: -100px;
+    }
+    
+    .circle:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      bottom: -150px;
+      right: -150px;
+      animation-duration: 20s;
+    }
+    
+    .circle:nth-child(3) {
+      width: 150px;
+      height: 150px;
+      top: 200px;
+      left: 300px;
+      animation-duration: 12s;
+    }
+    
+    .circle:nth-child(4) {
+      width: 250px;
+      height: 250px;
+      bottom: 100px;
+      left: 200px;
+      animation-duration: 18s;
+    }
+    
+    @keyframes circleAnimation {
+      0% {
+        transform: scale(0) translate(0, 0);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.5) translate(500px, 500px);
+        opacity: 0;
+      }
+    }
+    
+    /* HEADER */
+    .header {
+      background: rgba(42, 52, 63, 0.9);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 20px;
+      text-align: left;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .language-dropdown {
+      position: relative;
+    }
+    
+    .language-button {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 15px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .language-button:hover {
+      background: rgba(0, 229, 255, 0.2);
+      border-color: rgba(0, 229, 255, 0.5);
+    }
+    
+    .language-button .flag-icon {
+      width: 20px;
+      height: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    
+    .language-button i.fa-chevron-down {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-left: 5px;
+    }
+
+    /* CONTENT */
+    .content-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 120px 20px 100px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .rules-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      margin-top: 30px;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+      color: var(--secondary-color);
+    }
+    
+    .rules-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 80px;
+      height: 3px;
+      background: var(--accent-color);
+      transform: translateX(-50%);
+    }
+    
+    .rules-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .rule-card {
+      background: var(--dark-bg);
+      border-radius: 12px;
+      padding: 0;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: left;
+      margin-bottom: 15px;
+    }
+    
+    .rule-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .rule-header {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background: #ff4d4d;
+      color: white;
+      font-weight: 600;
+      border-radius: 12px 12px 0 0;
+    }
+    
+    .rule-header i {
+      font-size: 24px;
+      margin-right: 15px;
+    }
+    
+    .rule-header h3 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    
+    .rule-content {
+      padding: 20px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--secondary-color);
+    }
+    
+    .rule-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--dark-bg);
+      border-radius: 50%;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .rule-icon i {
+      font-size: 24px;
+      color: var(--warning-color);
+    }
+    
+    .rules-footer {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border-left: 4px solid var(--accent-color);
+    }
+    
+    .copyright {
+      font-style: italic;
+      margin-top: 10px;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      background: var(--dark-bg);
+      padding: 12px 5px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+    }
+    
+    .navbar a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      padding: 8px 5px;
+      transition: color 0.3s ease;
+      font-size: 12px;
+      white-space: nowrap;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      width: 25%;
+      text-align: center;
+    }
+    
+    .navbar a i {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+    
+    .navbar a:hover, .navbar a.active {
+      color: var(--accent-color);
+    }
+    
+    /* RESPONSIVE ADJUSTMENTS */
+    @media (max-width: 768px) {
+      .content-container {
+        padding-top: 130px;
+      }
+      
+      .rules-title {
+        font-size: 30px;
+        margin-top: 20px;
+      }
+      
+      .rule-header h3 {
+        font-size: 16px;
+      }
+      
+      .rule-content {
+        font-size: 14px;
+        padding: 15px;
+      }
+      
+      .rules-footer {
+        font-size: 16px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .content-container {
+        padding-top: 100px;
+      }
+      
+      .rules-title {
+        font-size: 26px;
+        margin-top: 40px;
+        margin-bottom: 30px;
+      }
+      
+      .rule-header {
+        padding: 12px;
+      }
+      
+      .rule-header i {
+        font-size: 20px;
+      }
+      
+      .rule-header h3 {
+        font-size: 15px;
+      }
+      
+      .rule-content {
+        font-size: 14px;
+        padding: 15px;
+      }
+      
+      .rules-footer {
+        font-size: 14px;
+        padding: 15px;
+      }
+      
+      .rule-icon {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .rule-icon i {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-animation">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+  
+  <div class="header">
+    <h1>Old Tashkent Hotel & SPA</h1>
+    <div class="language-dropdown">
+    </div>
+  </div>
+  
+  <div class="content-container">
+    <h2 class="rules-title">Hotel Rules</h2>
+    
+    <div class="rules-container">
+      <!-- Rule 1 -->
+      <div class="rule-card">
+        <div class="rule-header">
+          <i class="fas fa-exclamation-circle"></i>
+          <h3>Family-Oriented Policy</h3>
+        </div>
+        <div class="rule-content">
+          <p>Since our hotel is a family-oriented hotel, you cannot enter here without a marriage certificate. This rule only applies to citizens of Uzbekistan. One more thing we should mention: if one partner is an Uzbek citizen and the other is a foreign citizen, we also cannot allow them to stay.</p>
+        </div>
+      </div>
+      
+      <!-- Rule 2 -->
+      <div class="rule-card">
+        <div class="rule-header">
+          <i class="fas fa-volume-mute"></i>
+          <h3>Quiet Hours</h3>
+        </div>
+        <div class="rule-content">
+          <p>After 11:00 PM, please avoid making noise. Remember that other guests are also resting.</p>
+        </div>
+      </div>
+      
+      <!-- Rule 3 -->
+      <div class="rule-card">
+        <div class="rule-header">
+          <i class="fas fa-smoking-ban"></i>
+          <h3>No Smoking Policy</h3>
+        </div>
+        <div class="rule-content">
+          <p>Smoking tobacco products in the room is prohibited. Out of respect for the next guest, we kindly ask you not to smoke in the room. We have fines for this!</p>
+        </div>
+      </div>
+      
+      <!-- Rule 4 -->
+      <div class="rule-card">
+        <div class="rule-header">
+          <i class="fas fa-key"></i>
+          <h3>Room Key Policy</h3>
+        </div>
+        <div class="rule-content">
+          <p>Please keep the room key card safe and do not lose it. Otherwise, you will be charged a $10 penalty.</p>
+        </div>
+      </div>
+      
+      <!-- Rule 5 -->
+      <div class="rule-card">
+        <div class="rule-header">
+          <i class="fas fa-box"></i>
+          <h3>Room Items Policy</h3>
+        </div>
+        <div class="rule-content">
+          <p>Nothing in the room is for sale. Please do not remove items you like from the room and put yourself and us in an awkward situation!</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="rules-footer">
+      <p>Following these rules ensures a pleasant stay for everyone. We appreciate your cooperation.</p>
+      <p class="copyright">Respectfully, the Old Tashkent Hotel & SPA Team</p>
+    </div>
+  </div>
+  
+  <div class="navbar">
+    <a href="main.html"><i class="fas fa-info-circle"></i> ABOUT</a>
+    <a href="services.html" class="active"><i class="fas fa-concierge-bell"></i> SERVICES</a>
+    <a href="advice.html"><i class="fas fa-lightbulb"></i> ADVICE</a>
+    <a href="rules.html"><i class="fas fa-clipboard-list"></i> RULES</a>
+  </div>
+</body>
+</html>
